@@ -1,0 +1,87 @@
+#backLink {
+    /*position: fixed;*/
+    top: 10px;
+    right: 10px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.search-container {
+    position: relative;
+    width: 200px;
+}
+
+#searchTerm {
+    width: 100%;
+    padding: 10px 20px 10px 40px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+#searchButton {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform; translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer
+}
+
+#searchButton::before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: center;
+
+.rounded {
+    border-radius: 18px;
+    padding: 15px;
+    margin-right: 8px;
+}
+
+.blue-button {
+    background-color: #4285F4;
+    color: #ffffff;
+    border: none;
+    padding: 10px 16px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.lucky-button {
+    display: block;
+    text-align: center;
+    margin: 20px;
+    color: #333333;
+    text-decoration: none;
+}
+
+.nav-link {
+    margin-left: 10px;
+    text-decoration: none;
+    color: #333333;
+}
+
+#advanced-options {
+    margin-top: 20px;
+}
+
+/* Estilo específico para a Pesquisa Avançada do Google */
+#advanced-options label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#advanced-options input {
+    margin-top: 5px;
+    width: 300px;
+}

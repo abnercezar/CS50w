@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Search</title>
+        <!-- Importa arquivo de estilização -->
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div id="search-container">
+        <form action="https://www.google.com/search" method="GET">
+            <input type="text" id="searchTerm" name="q" class="rounded">
+            <button type="submit" value="Google Search" class="blue-button">
+
+            <!-- Envia para página de pesquisa de imagens -->
+            <a href="image_search.html" class="nav-link">Pesquisa de Imagens</a>
+
+            <!-- Envia para página de pesquisa avançada -->
+            <a href="advanced_search.html" class="nav-link">Pesquisa Avançada</a>
+        </form>
+        </div>
+
+        <!-- Funcionalidade do Google que leva o usuário diretamente para o primeiro resultado de pesquisa -->
+        <a href="https://www.google.com/search?q={consulta}&btnI" class="Estou com sorte"></a>
+    </body>
+</html>

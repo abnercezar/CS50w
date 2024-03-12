@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Advanced Search</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="search-container">
+        <form action="https://www.google.com/search" method="GET">
+            <input type="text" name="q" class="rounded">
+            <input type="submit" value="Pesquisa Avançada" class="blue-button">
+            <a href="index.html" class="nav-link">Voltar para Pesquisa do Google</a>
+        </form>
+        <div id="advanced-options">
+            <label for="all-words">Encontre páginas com... "todas estas palavras:"</label>
+            <input type="text" name="as_q" id="all-words" class="rounded">
+
+            <label for="exact-phrase">Encontre páginas com... "esta palavra ou frase exata:"</label>
+            <input type="text" name="as_epq" id="exact-phrase" class="rounded">
+
+            <label for="any-words">Encontre páginas com... "qualquer uma destas palavras:"</label>
+            <input type="text" name="as_oq" id="any-words" class="rounded">
+
+            <label for="exclude-words">Encontre páginas com... "nenhuma destas palavras:"</label>
+            <input type="text" name="as_eq" id="exclude-words" class="rounded">
+        </div>
+    </div>
+</body>
+</html>

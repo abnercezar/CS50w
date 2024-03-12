@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>Image Search</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <body>
+        <div id="search-container">
+            <form action="https://www.google.com/search" method="GET">
+
+                <!--Campo oculto para busca de imagens-->
+                <input type="hidden" name="tbm" value="isch">
+
+                <!--Campo de pesquisa principal-->
+                <input type="text" name="q" class="rounded">
+
+                <!-- Botão de envio-->
+                <input type="submit" value="Google Image Search" class="blue-button">
+
+                <a href="index.html" class="nav-link" id="backLink">Voltar para Pesquisa do Google</a>
+            </form>
+        </div>
+    </body>
+
+</html>
