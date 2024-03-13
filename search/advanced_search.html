@@ -1,29 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Advanced Search</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <div id="search-container">
         <form action="https://www.google.com/search" method="GET">
-            <input type="text" name="q" class="rounded">
-            <input type="submit" value="Pesquisa Avançada" class="blue-button">
-            <a href="index.html" class="nav-link">Voltar para Pesquisa do Google</a>
-        </form>
-        <div id="advanced-options">
-            <label for="all-words">Encontre páginas com... "todas estas palavras:"</label>
-            <input type="text" name="as_q" id="all-words" class="rounded">
+            <a href="index.html" id="backLink" class="nav-link">Voltar para Pesquisa do Google</a>
+            <div id="header-title">
+            <label for="all-words" class="label">Encontre páginas com...</label>
+            </div>
 
-            <label for="exact-phrase">Encontre páginas com... "esta palavra ou frase exata:"</label>
-            <input type="text" name="as_epq" id="exact-phrase" class="rounded">
+            <div id="advanced-options">
+                <div class="input_advanced">
+                    <label for="all-words" class="label">todas estas palavras:
+                        <input type="search" name="as_q" id="all-words" class="rectangular"></label>
+                </div>
 
-            <label for="any-words">Encontre páginas com... "qualquer uma destas palavras:"</label>
-            <input type="text" name="as_oq" id="any-words" class="rounded">
+                <div class="input_advanced">
+                    <label for="exact-phrase" class="label">esta palavra ou frase exata:
+                        <input type="search" name="as_epq" id="exact-phrase" class="rectangular"></label>
+                </div>
 
-            <label for="exclude-words">Encontre páginas com... "nenhuma destas palavras:"</label>
-            <input type="text" name="as_eq" id="exclude-words" class="rounded">
-        </div>
+                <div class="input_advanced">
+                <label for="any-words" class="label">qualquer uma destas palavras:
+                    <input type="search" name="as_oq" id="any-words" class="rectangular"></label>
+            </div>
+
+            <div class="input_advanced">
+            <label for="exclude-words" class="label">nenhuma destas palavras:
+                <input type="search" name="as_eq" id="exclude-words" class="rectangular"></label>
     </div>
+
+    </div>
+    <div><input type="submit" value="Pesquisa Avançada" class="blue-button"></div>
+    </form>
+
 </body>
+
 </html>

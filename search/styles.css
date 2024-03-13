@@ -1,18 +1,132 @@
-#backLink {
-    /*position: fixed;*/
-    top: 10px;
-    right: 10px;
-}
+/* Classes */
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: arial, sans-serif;
+    display: flex;
+    justify-content: left;
+    /* Centraliza o conteúdo horizontalmente */
+    align-items: left;
+    /* Centraliza o conteúdo verticalmente */
+    min-height: 100vh;
+    /* Garante que o corpo ocupe toda a altura da janela */
     margin: 0;
-    padding: 0;
+    /* Remove qualquer margem padrão */
 }
 
 .search-container {
     position: relative;
-    width: 200px;
+    width: 100px;
+}
+
+.search-form {
+    text-align: left;
+}
+
+/* Estiliza o campo de entrada */
+.rounded {
+    width: 800px;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 30px;
+    margin-bottom: 10px;
+}
+
+.rectangular {
+    width: 300px;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 1px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.input_advanced {
+    display: flex;
+    align-items: center;
+}
+
+.label {
+    margin-right: 10px;
+    display: block;
+    margin-bottom: 5px;
+    padding-left: 50px;
+}
+
+.blue-button:hover {
+    background-color: #2b7ddd;
+    /* Muda a cor de fundo do botão quando o mouse passa por cima */
+}
+
+/* Adicione media queries para responsividade conforme necessário */
+@media (max-width: 600px) {
+    #search-container {
+        text-align: left;
+        /* Alinha o texto à esquerda */
+        padding: 0 20px;
+        /* Adiciona preenchimento horizontal para telas pequenas */
+    }
+}
+
+/* Estiliza o botão */
+.blue-button {
+    background-color: #4285f4;
+    border: 1px solid #4285f4;
+    border-radius: 4px;
+    color: white;
+    font-family: arial, sans-serif;
+    font-size: 14px;
+    margin: 24px 4px;
+    padding: 10 16px;
+    line-height: 27px;
+    height: 36px;
+    width: 150px;
+    cursor: pointer;
+    user-select: none;
+}
+
+
+.lucky-button {
+    display: block;
+    text-align: center;
+    margin: 20px;
+    color: #333333;
+    text-decoration: none;
+}
+
+
+.nav-link {
+    margin-left: 1px;
+    margin-right: 5px;
+    float: right;
+
+}
+
+
+.blue-button:hover {
+    background-color: #2b7ddd;
+    /* Muda a cor de fundo do botão quando o mouse passa por cima */
+}
+
+.header-title {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    text-align: left;
+}
+
+/* ID's */
+#backLink {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+}
+
+#header-title {
+    display: block;
+    font-weight: bold;
+    text-align: left;
+    margin-top: 200px;
 }
 
 #searchTerm {
@@ -22,11 +136,20 @@ body {
     border-radius: 3px;
 }
 
-#searchButton {
+
+/* Adicione media queries para responsividade conforme necessário */
+@media (max-width: 200px) {
+    #search-container {
+        padding: 0 20px;
+        /* Adiciona preenchimento horizontal para telas pequenas */
+    }
+}
+
+/*#searchButton {
     position: absolute;
     left: 10px;
     top: 50%;
-    transform; translateY(-50%);
+    transform: translateY(-50%);
     background: transparent;
     border: none;
     cursor: pointer
@@ -40,34 +163,25 @@ body {
     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>');
     background-repeat: no-repeat;
     background-position: center;
+}*/
 
-.rounded {
-    border-radius: 18px;
-    padding: 15px;
-    margin-right: 8px;
-}
-
-.blue-button {
-    background-color: #4285F4;
-    color: #ffffff;
-    border: none;
-    padding: 10px 16px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.lucky-button {
-    display: block;
+#search-container div {
     text-align: center;
-    margin: 20px;
-    color: #333333;
-    text-decoration: none;
+    overflow: hidden;
 }
 
-.nav-link {
-    margin-left: 10px;
-    text-decoration: none;
-    color: #333333;
+#imageSearchLink {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    margin-right: 20px;
+}
+
+#advancedSearchLink {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    margin-right: 170px;
 }
 
 #advanced-options {
@@ -78,10 +192,11 @@ body {
 #advanced-options label {
     display: block;
     margin-top: 10px;
-    font-weight: bold;
+    text-align: left;
 }
+
 
 #advanced-options input {
     margin-top: 5px;
-    width: 300px;
+    width: 600px;
 }

@@ -1,25 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Search</title>
-        <!-- Importa arquivo de estilização -->
-        <link rel="stylesheet" href="styles.css">
-    </head>
-    <body>
-        <div id="search-container">
+
+<head>
+    <title>Search</title>
+
+
+    <!-- Importa arquivo de estilização -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div id="search-container">
         <form action="https://www.google.com/search" method="GET">
-            <input type="text" id="searchTerm" name="q" class="rounded">
-            <button type="submit" value="Google Search" class="blue-button">
+            <div><input type="search" name="q" class="rounded"></div>
 
-            <!-- Envia para página de pesquisa de imagens -->
-            <a href="image_search.html" class="nav-link">Pesquisa de Imagens</a>
+            <div>
+                <input type="submit" value="Google Search" class="blue-button">
 
-            <!-- Envia para página de pesquisa avançada -->
-            <a href="advanced_search.html" class="nav-link">Pesquisa Avançada</a>
+                <!-- Funcionalidade do Google que leva o usuário diretamente para o primeiro resultado de pesquisa -->
+                <a href="https://www.google.com/search?q={consulta}&btnI">
+                    <input type="button" value="Estou com sorte" class="blue-button">
+                </a>
+            </div>
+
+
+            <div class="links-container">
+                <!-- Envia para página de pesquisa de imagens -->
+                <a href="image_search.html" class="nav-link" id="imageSearchLink">Pesquisa de Imagens</a>
+
+                <!-- Envia para página de pesquisa avançada -->
+                <a href="advanced_search.html" class="nav-link" id="advancedSearchLink">Pesquisa Avançada</a>
+            </div>
+
         </form>
-        </div>
+    </div>
 
-        <!-- Funcionalidade do Google que leva o usuário diretamente para o primeiro resultado de pesquisa -->
-        <a href="https://www.google.com/search?q={consulta}&btnI" class="Estou com sorte"></a>
-    </body>
+</body>
+
 </html>
