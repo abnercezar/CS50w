@@ -1,148 +1,150 @@
 /* Classes */
 
 body {
-    font-family: arial, sans-serif;
-    display: flex;
-    justify-content: left;
-    /* Centraliza o conteúdo horizontalmente */
-    align-items: left;
-    /* Centraliza o conteúdo verticalmente */
-    min-height: 100vh;
-    /* Garante que o corpo ocupe toda a altura da janela */
-    margin: 0;
-    /* Remove qualquer margem padrão */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #202124;
+}
+
+#search-container {
+  display: inline-block;
 }
 
 .search-container {
-    position: relative;
-    width: 100px;
+  position: relative;
+  width: 100px;
 }
 
 .search-form {
-    text-align: left;
+  text-align: left;
 }
 
 /* Estiliza o campo de entrada */
 .rounded {
-    width: 800px;
-    padding: 20px;
-    border: 2px solid #ccc;
-    border-radius: 30px;
-    margin-bottom: 10px;
+  width: 800px;
+  padding: 20px;
+  border: 2px solid #ccc;
+  border-radius: 30px;
+  margin-bottom: 10px;
+  background-color: #202124;
+}
+
+.rounded:hover {
+  background-color: #303134;
 }
 
 .rectangular {
-    width: 300px;
-    padding: 10px;
-    border: 2px solid #ccc;
-    border-radius: 1px;
-    margin-bottom: 10px;
-    box-sizing: border-box;
+  width: 300px;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 1px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
 }
 
 .input_advanced {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .label {
-    margin-right: 10px;
-    display: block;
-    margin-bottom: 5px;
-    padding-left: 50px;
+  margin-right: 10px;
+  display: block;
+  margin-bottom: 5px;
+  padding-left: 50px;
 }
 
-.blue-button:hover {
-    background-color: #2b7ddd;
-    /* Muda a cor de fundo do botão quando o mouse passa por cima */
+.grid-button:hover {
+  background-color: #2b7ddd;
+  /* Muda a cor de fundo do botão quando o mouse passa por cima */
 }
 
 /* Adicione media queries para responsividade conforme necessário */
 @media (max-width: 600px) {
-    #search-container {
-        text-align: left;
-        /* Alinha o texto à esquerda */
-        padding: 0 20px;
-        /* Adiciona preenchimento horizontal para telas pequenas */
-    }
+  #search-container {
+    text-align: left;
+    /* Alinha o texto à esquerda */
+    padding: 0 20px;
+    /* Adiciona preenchimento horizontal para telas pequenas */
+  }
 }
 
 /* Estiliza o botão */
-.blue-button {
-    background-color: #4285f4;
-    border: 1px solid #4285f4;
-    border-radius: 4px;
-    color: white;
-    font-family: arial, sans-serif;
-    font-size: 14px;
-    margin: 24px 4px;
-    padding: 10 16px;
-    line-height: 27px;
-    height: 36px;
-    width: 150px;
-    cursor: pointer;
-    user-select: none;
+.grid-button {
+  background-color: #303134;
+  border: 1px solid #303134;
+  border-radius: 4px;
+  color: white;
+  font-family: arial, sans-serif;
+  font-size: 14px;
+  margin: 24px 4px;
+  padding: 10 16px;
+  line-height: 27px;
+  height: 36px;
+  width: 150px;
+  cursor: pointer;
+  user-select: none;
 }
-
 
 .lucky-button {
-    display: block;
-    text-align: center;
-    margin: 20px;
-    color: #333333;
-    text-decoration: none;
+  display: block;
+  text-align: center;
+  margin: 20px;
+  color: #333333;
+  text-decoration: none;
 }
-
 
 .nav-link {
-    margin-left: 1px;
-    margin-right: 5px;
-    float: right;
-
+  margin-left: 1px;
+  margin-right: 10px;
+  float: right;
 }
 
-
-.blue-button:hover {
-    background-color: #2b7ddd;
-    /* Muda a cor de fundo do botão quando o mouse passa por cima */
+.grid-button:hover {
+  background-color: #505255;
+  /* Muda a cor de fundo do botão quando o mouse passa por cima */
 }
 
 .header-title {
-    display: block;
-    margin-top: 10px;
-    font-weight: bold;
-    text-align: left;
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+  text-align: left;
 }
 
 /* ID's */
 #backLink {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    z-index: 1000;
+  position: fixed;
+  top: 10px;
+  right: 20px;
+  margin-right: 170px;
+  color: white;
+  text-decoration: none !important;
 }
 
 #header-title {
-    display: block;
-    font-weight: bold;
-    text-align: left;
-    margin-top: 200px;
+  display: block;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 200px;
 }
 
 #searchTerm {
-    width: 100%;
-    padding: 10px 20px 10px 40px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
+  width: 100%;
+  padding: 10px 20px 10px 40px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
 }
-
 
 /* Adicione media queries para responsividade conforme necessário */
 @media (max-width: 200px) {
-    #search-container {
-        padding: 0 20px;
-        /* Adiciona preenchimento horizontal para telas pequenas */
-    }
+  #search-container {
+    padding: 0 20px;
+    /* Adiciona preenchimento horizontal para telas pequenas */
+  }
 }
 
 /*#searchButton {
@@ -166,37 +168,162 @@ body {
 }*/
 
 #search-container div {
-    text-align: center;
-    overflow: hidden;
+  text-align: center;
+  overflow: hidden;
 }
 
 #imageSearchLink {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    margin-right: 20px;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  margin-right: 20px;
+  color: white;
+  text-decoration: none !important;
 }
 
 #advancedSearchLink {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    margin-right: 170px;
+  position: fixed;
+  top: 10px;
+  right: 20px;
+  margin-right: 170px;
+  color: white;
+  text-decoration: none !important;
 }
 
 #advanced-options {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 /* Estilo específico para a Pesquisa Avançada do Google */
 #advanced-options label {
-    display: block;
-    margin-top: 10px;
-    text-align: left;
+  display: block;
+  margin-top: 10px;
+  text-align: left;
 }
 
-
 #advanced-options input {
-    margin-top: 5px;
-    width: 600px;
+  margin-top: 5px;
+  width: 600px;
+}
+
+.logo {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+/* Centralizar os elementos advanced_search */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #202124;
+  color: white;
+}
+
+#search-container_as {
+  display: inline-block;
+  text-align: left;
+  background-color: #303134;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  width: 700px; /* Define a largura do card */
+}
+
+/* Ajustes no formulário de pesquisa */
+.search-form_as {
+  text-align: left;
+}
+
+.input_advanced_as {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Espaçamento entre a label e o input */
+  margin-bottom: 15px; /* Espaçamento entre os campos */
+  width: 100%;
+}
+
+/* Campos de entrada */
+.rectangular_as {
+  width: 500px; /* Define uma largura fixa para os inputs */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #202124;
+  color: white;
+  font-size: 16px;
+  box-sizing: border-box; /* Garante que padding e largura sejam corretamente aplicados */
+}
+
+.rectangular_as:hover,
+.rectangular_as:focus {
+  background-color: #303134;
+  border-color: #1a73e8;
+  outline: none;
+}
+
+/* Estilo para o botão */
+.grid-button_as {
+  width: 200px;
+  padding: 10px;
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.grid-button_as:hover {
+  background-color: #2b7ddd;
+}
+
+/* Voltar para pesquisa do Google */
+#backLink_as {
+  color: #1a73e8;
+  text-decoration: none;
+  margin-bottom: 20px;
+}
+
+#backLink_as:hover {
+  text-decoration: underline;
+}
+
+/* Ajuste nos títulos e etiquetas */
+#header-title_as {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.label_as {
+  font-size: 16px;
+  color: #ddd;
+  width: 200px; /* Defina uma largura fixa para alinhar as labels */
+  margin-right: 20px;
+  vertical-align: top;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+  .rectangular_as {
+    width: 100%;
+  }
+
+  .grid-button_as {
+    width: 100%;
+  }
+
+  .input_advanced_as {
+    flex-direction: column; /* Alinha os inputs e labels em coluna em telas menores */
+  }
+
+  .label_as {
+    text-align: left; /* Centraliza a label em telas pequenas */
+    margin-bottom: 5px;
+  }
 }

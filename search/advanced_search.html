@@ -1,44 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>Pesquisa Avançada</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
 
-<head>
-    <title>Advanced Search</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
+  <body>
+    <div id="search-container_as">
+      <form
+        action="https://www.google.com/search"
+        method="GET"
+        class="search-form_as"
+      >
+        <a href="index.html" id="backLink_as" class="nav-link"
+          >Voltar para Pesquisa do Google</a
+        >
+        <div id="header-title_as">
+          <label for="all-words" class="label_as"
+            >Encontre páginas com...</label
+          >
+        </div>
 
-<body>
-    <div id="search-container">
-        <form action="https://www.google.com/search" method="GET">
-            <a href="index.html" id="backLink" class="nav-link">Voltar para Pesquisa do Google</a>
-            <div id="header-title">
-            <label for="all-words" class="label">Encontre páginas com...</label>
-            </div>
+        <div id="advance-option_as">
+          <div class="input_advanced_as">
+            <label for="all-words" class="label_as"
+              >todas estas palavras:
+              <input
+                type="search"
+                name="as_q"
+                id="all-words"
+                class="rectangular_as"
+            /></label>
+          </div>
 
-            <div id="advanced-options">
-                <div class="input_advanced">
-                    <label for="all-words" class="label">todas estas palavras:
-                        <input type="search" name="as_q" id="all-words" class="rectangular"></label>
-                </div>
+          <div class="input_advanced_as">
+            <label for="exact-phrase" class="label_as"
+              >esta palavra ou frase exata:
+              <input
+                type="search"
+                name="as_epq"
+                id="exact-phrase"
+                class="rectangular_as"
+            /></label>
+          </div>
 
-                <div class="input_advanced">
-                    <label for="exact-phrase" class="label">esta palavra ou frase exata:
-                        <input type="search" name="as_epq" id="exact-phrase" class="rectangular"></label>
-                </div>
+          <div class="input_advanced_as">
+            <label for="any-words" class="label_as"
+              >qualquer uma destas palavras:
+              <input
+                type="search"
+                name="as_oq"
+                id="any-words"
+                class="rectangular_as"
+            /></label>
+          </div>
 
-                <div class="input_advanced">
-                <label for="any-words" class="label">qualquer uma destas palavras:
-                    <input type="search" name="as_oq" id="any-words" class="rectangular"></label>
-            </div>
-
-            <div class="input_advanced">
-            <label for="exclude-words" class="label">nenhuma destas palavras:
-                <input type="search" name="as_eq" id="exclude-words" class="rectangular"></label>
+          <div class="input_advanced_as">
+            <label for="exclude-words" class="label_as"
+              >nenhuma destas palavras:
+              <input
+                type="search"
+                name="as_eq"
+                id="exclude-words"
+                class="rectangular_as"
+            /></label>
+          </div>
+        </div>
+        <div>
+          <input
+            type="submit"
+            value="Pesquisa Avançada"
+            class="grid-button_as"
+          />
+        </div>
+      </form>
     </div>
-
-    </div>
-    <div><input type="submit" value="Pesquisa Avançada" class="blue-button"></div>
-    </form>
-
-</body>
-
+  </body>
 </html>
