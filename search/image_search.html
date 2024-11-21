@@ -1,32 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
+    <meta charset="UTF-8" />
     <title>Image Search</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
 
-<body>
+  <body>
     <div id="search-container">
-        <img src="logogooglecolor.png" alt="Google" width="300" height="100" class="logo">
-        <!-- Formulário de pesquisa e link de volta -->
-        <div class="search-form">
-            <form action="https://www.google.com/search" method="GET">
+      <img
+        src="logogooglecolor.png"
+        alt="Google"
+        width="300"
+        height="100"
+        class="logo"
+      />
+      <!-- Formulário de pesquisa e link de volta -->
+      <div class="search-form">
+        <form action="https://www.google.com/search" method="GET">
+          <!-- Campo oculto para busca de imagens -->
+          <input type="hidden" name="tbm" value="isch" />
 
-                <!-- Campo oculto para busca de imagens -->
-                <input type="hidden" name="tbm" value="isch">
+          <!-- Campo de pesquisa principal -->
+          <div><input type="search" name="q" class="rounded" /></div>
 
-                <!-- Campo de pesquisa principal -->
-                <div><input type="search" name="q" class="rounded"></div>
+          <!-- Botão de envio -->
+          <div>
+            <input
+              type="submit"
+              value="Google Image Search"
+              class="grid-button"
+            />
+          </div>
+        </form>
 
-                <!-- Botão de envio -->
-                <div><input type="submit" value="Google Image Search" class="grid-button"></div>
-            </form>
-
-            <!-- Link "Voltar para Pesquisa do Google" no canto superior direito -->
-            <a href="index.html" id="backLink" class="nav-link">Voltar para Pesquisa do Google</a>
-        </div>
+        <!-- Link "Voltar para Pesquisa do Google" no canto superior direito -->
+        <a href="index.html" id="backLink" class="nav-link"
+          >Voltar para Pesquisa do Google</a
+        >
+      </div>
     </div>
-</body>
-
+  </body>
 </html>
