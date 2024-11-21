@@ -1,41 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
+    <meta charset="UTF-8" />
     <title>Search</title>
-
-
     <!-- Importa arquivo de estilização -->
-    <link rel="stylesheet" href="styles.css">
-</head>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
 
-<body>
+  <body>
     <div id="search-container">
-        <img src="logogooglecolor.png" alt="Google" width="300" height="100" class="logo">
-        <form action="https://www.google.com/search" method="GET" style="margin-top: 30px;">
-            <div><input type="search" name="q" class="rounded"></div>
+      <img
+        src="logogooglecolor.png"
+        alt="Google"
+        width="300"
+        height="100"
+        class="logo"
+      />
+      <form
+        action="https://www.google.com/search"
+        method="GET"
+        style="margin-top: 30px"
+      >
+        <div><input type="search" name="q" class="rounded" /></div>
 
-            <div>
-                <input type="submit" value="Google Search" class="grid-button">
+        <div>
+          <input type="submit" value="Google Search" class="grid-button" />
+          <input
+            type="submit"
+            value="Estou com sorte"
+            class="grid-button"
+            name="btnI"
+          />
+        </div>
 
-                <!-- Funcionalidade do Google que leva o usuário diretamente para o primeiro resultado de pesquisa -->
-                <a href="https://www.google.com/search?q={consulta}&btnI">
-                    <input type="button" value="Estou com sorte" class="grid-button">
-                </a>
-            </div>
+        <div class="links-container">
+          <!-- Envia para página de pesquisa de imagens -->
+          <a href="image_search.html" class="nav-link" id="imageSearchLink"
+            >Pesquisa de Imagens</a
+          >
 
-
-            <div class="links-container">
-                <!-- Envia para página de pesquisa de imagens -->
-                <a href="image_search.html" class="nav-link" id="imageSearchLink">Pesquisa de Imagens</a>
-
-                <!-- Envia para página de pesquisa avançada -->
-                <a href="advanced_search.html" class="nav-link" id="advancedSearchLink">Pesquisa Avançada</a>
-            </div>
-
-        </form>
+          <!-- Envia para página de pesquisa avançada -->
+          <a
+            href="advanced_search.html"
+            class="nav-link"
+            id="advancedSearchLink"
+            >Pesquisa Avançada</a
+          >
+        </div>
+      </form>
     </div>
-
-</body>
-
+  </body>
 </html>

@@ -7,6 +7,8 @@ body {
   height: 100vh;
   margin: 0;
   background-color: #202124;
+  color: white;
+  box-sizing: border-box; /* Adiciona box-sizing globalmente */
 }
 
 #search-container {
@@ -30,10 +32,16 @@ body {
   border-radius: 30px;
   margin-bottom: 10px;
   background-color: #202124;
+  color: #fff; /* Adiciona cor do texto para contraste */
 }
 
-.rounded:hover {
-  background-color: #303134;
+.rounded:hover,
+.rounded:focus {
+  background-color: #202124; /* Garante que a cor de fundo permaneça a mesma */
+  color: #fff; /* Garante que a cor do texto permaneça a mesma */
+  border-color: #fff !important; /* Garante que a borda fique branca */
+  outline: none; /* Remove o outline padrão do navegador */
+  box-shadow: 0 0 0 0px #fff; /* Adiciona um box-shadow branco para garantir que a borda fique branca */
 }
 
 .rectangular {
@@ -57,22 +65,6 @@ body {
   padding-left: 50px;
 }
 
-.grid-button:hover {
-  background-color: #2b7ddd;
-  /* Muda a cor de fundo do botão quando o mouse passa por cima */
-}
-
-/* Adicione media queries para responsividade conforme necessário */
-@media (max-width: 600px) {
-  #search-container {
-    text-align: left;
-    /* Alinha o texto à esquerda */
-    padding: 0 20px;
-    /* Adiciona preenchimento horizontal para telas pequenas */
-  }
-}
-
-/* Estiliza o botão */
 .grid-button {
   background-color: #303134;
   border: 1px solid #303134;
@@ -89,6 +81,11 @@ body {
   user-select: none;
 }
 
+.grid-button:hover {
+  background-color: #505255;
+  /* Muda a cor de fundo do botão quando o mouse passa por cima */
+}
+
 .lucky-button {
   display: block;
   text-align: center;
@@ -101,11 +98,6 @@ body {
   margin-left: 1px;
   margin-right: 10px;
   float: right;
-}
-
-.grid-button:hover {
-  background-color: #505255;
-  /* Muda a cor de fundo do botão quando o mouse passa por cima */
 }
 
 .header-title {
@@ -140,32 +132,21 @@ body {
 }
 
 /* Adicione media queries para responsividade conforme necessário */
+@media (max-width: 600px) {
+  #search-container {
+    text-align: left;
+    /* Alinha o texto à esquerda */
+    padding: 0 20px;
+    /* Adiciona preenchimento horizontal para telas pequenas */
+  }
+}
+
 @media (max-width: 200px) {
   #search-container {
     padding: 0 20px;
     /* Adiciona preenchimento horizontal para telas pequenas */
   }
 }
-
-/*#searchButton {
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: transparent;
-    border: none;
-    cursor: pointer
-}
-
-#searchButton::before {
-    content: "";
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>');
-    background-repeat: no-repeat;
-    background-position: center;
-}*/
 
 #search-container div {
   text-align: center;
@@ -210,17 +191,6 @@ body {
   display: block;
   margin: 0 auto;
   margin-bottom: 20px;
-}
-
-/* Centralizar os elementos advanced_search */
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  background-color: #202124;
-  color: white;
 }
 
 #search-container_as {
