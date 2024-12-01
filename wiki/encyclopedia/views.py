@@ -14,13 +14,15 @@ def convert_md_to_html_simple(markdown_text):
     markdown_text = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', markdown_text)
 
     # Converter listas não ordenadas
-    markdown_text = re.sub(r'^\*\s+(.+)$', r'<ul><li>\1</li></ul>', markdown_text, flags=re.MULTILINE)
-    markdown_text = re.sub(r'(<ul>.*?</ul>)\s*<ul>', r'\1', markdown_text, flags=re.DOTALL)
+    markdown_text = re.sub(r'((?:^|\n)\* .+)+', lambda m: '<ul>' + re.sub(r'\* (.+)', r'<li>\1</li>', m.group(0)) + '</ul>', markdown_text)
+
+    # Remover tags <ul> duplicadas
+    markdown_text = re.sub(r'</ul>\s*<ul>', '', markdown_text)
 
     # Converter links
     markdown_text = re.sub(r'\[(.+?)\]\((.+?)\)', r'<a href="\2">\1</a>', markdown_text)
 
-    # Converter parágrafos
+    # Converter parágrafos, se não for título, lista, link ou negrito
     markdown_text = re.sub(r'^(?!<h|<ul|<li|<a|<strong)(.+)$', r'<p>\1</p>', markdown_text, flags=re.MULTILINE)
 
     return markdown_text
