@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+import random
 from django import forms
 from markdown2 import Markdown
 from . import util
@@ -93,3 +94,15 @@ def edit_page(request, title):
         "title": title,
         "form": form
     })
+
+# View para redirecionar para uma entrada aleatória na enciclopédia
+def random_page(request):
+    entries = util.list_entries()
+    if entries:
+        random_entry = random.choice(entries)
+        return redirect('entry', title=random_entry)
+    else:
+        return render(request, "encyclopedia/error.html", {
+            "message": "Nenhuma entrada encontrada."
+            })
+
