@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import render, redirect
 import random
 from django import forms
@@ -5,11 +6,31 @@ from markdown2 import Markdown
 from . import util
 
 # Função para converter conteúdo Markdown em HTML
+def convert_md_to_html_simple(markdown_text):
+    # Converter títulos
+    markdown_text = re.sub(r'^(#{1,6})\s*(.+)$', lambda m: f'<h{len(m.group(1))}>{m.group(2)}</h{len(m.group(1))}>', markdown_text, flags=re.MULTILINE)
+
+    # Converter texto em negrito
+    markdown_text = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', markdown_text)
+
+    # Converter listas não ordenadas
+    markdown_text = re.sub(r'^\*\s+(.+)$', r'<ul><li>\1</li></ul>', markdown_text, flags=re.MULTILINE)
+    markdown_text = re.sub(r'(<ul>.*?</ul>)\s*<ul>', r'\1', markdown_text, flags=re.DOTALL)
+
+    # Converter links
+    markdown_text = re.sub(r'\[(.+?)\]\((.+?)\)', r'<a href="\2">\1</a>', markdown_text)
+
+    # Converter parágrafos
+    markdown_text = re.sub(r'^(?!<h|<ul|<li|<a|<strong)(.+)$', r'<p>\1</p>', markdown_text, flags=re.MULTILINE)
+
+    return markdown_text
+
+# Atualizar a função convert_md_to_html para usar a conversão simples
 def convert_md_to_html(title):
     content = util.get_entry(title)
     if content is None:
         return None
-    return Markdown().convert(content)
+    return convert_md_to_html_simple(content)
 
 # View para a página inicial
 def index(request):
