@@ -70,3 +70,26 @@ def create_page(request):
     return render(request, "encyclopedia/create_page.html", {
         "form": form
     })
+
+# View para editar uma nova entrada na enciclopédia
+class EditPageForm(forms.Form):
+    content = forms.CharField(widget=forms.Textarea, label="Content")
+
+def edit_page(request, title):
+    if request.method == "POST":
+        form = EditPageForm(request.POST)
+        if form.is_valid():
+            content = form.cleaned_data["content"]
+            util.save_entry(title, content)
+            return redirect('entry', title=title)
+    else:
+        content = util.get_entry(title)
+        if content is None:
+            return render(request, "encyclopedia/error.html", {
+                "message": "The requested page was not found."
+            })
+        form = EditPageForm(initial={'content': content})
+    return render(request, "encyclopedia/edit_page.html", {
+        "title": title,
+        "form": form
+    })
