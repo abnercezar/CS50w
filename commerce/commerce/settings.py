@@ -27,6 +27,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Adicione a configuração de redirecionamento de login:
+LOGIN_URL = '/login'
+
+# Adicione a seguinte linha no seu arquivo settings.py para definir o tipo de campo de chave primária padrão:
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Define o tipo padrão de chave primária para os modelos como BigAutoField,
+# que utiliza números inteiros maiores, evitando possíveis problemas com limites em bancos de dados grandes.
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Application definition
 
