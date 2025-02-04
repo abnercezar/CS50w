@@ -3,9 +3,50 @@
 {% block body %}
     <h2>{{ listing.title }}</h2>
     <p>{{ listing.description }}</p>
-    <p>Current Price: ${{ listing.starting_bid }}</p>
+    <p>Starting Bid: ${{ listing.starting_bid }}</p>
+    <p>Current Price: ${{ listing.price }}</p>
     {% if listing.image_url %}
         <img src="{{ listing.image_url }}" alt="{{ listing.title }}" style="max-width: 200px;">
     {% endif %}
     <p>Category: {{ listing.category }}</p>
+
+    {% if user.is_authenticated %}
+        <form action="{% url 'listing' listing.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" name="watchlist">
+                {% if is_watching %}Remove from Watchlist{% else %}Add to Watchlist{% endif %}
+            </button>
+        </form>
+
+        {% if not is_owner and listing.is_active %}
+            <form action="{% url 'listing' listing.id %}" method="post">
+                {% csrf_token %}
+                {{ bid_form.as_p }}
+                <button type="submit" name="bid">Place Bid</button>
+            </form>
+        {% endif %}
+
+        {% if is_owner and listing.is_active %}
+            <form action="{% url 'listing' listing.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" name="close">Close Auction</button>
+            </form>
+        {% endif %}
+
+        {% if not listing.is_active and highest_bid and highest_bid.bidder == user %}
+            <p>Congratulations! You won this auction.</p>
+        {% endif %}
+
+        <h3>Comments</h3>
+        <form action="{% url 'listing' listing.id %}" method="post">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <button type="submit" name="comment">Add Comment</button>
+        </form>
+        <ul>
+            {% for comment in comments %}
+                <li>{{ comment.commenter.username }}: {{ comment.content }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 {% endblock %}
