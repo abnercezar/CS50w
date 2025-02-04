@@ -1,20 +1,29 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Active Listings</h2>
-    <div class="listings-container">
-        {% for listing in listings %}
-            <div class="listing">
-                <h3>{{ listing.title }}</h3>
-                <p>{{ listing.description }}</p>
-                <p>Current Price: ${{ listing.starting_bid }}</p>
-                {% if listing.image_url %}
-                    <img src="{{ listing.image_url }}" alt="{{ listing.title }}" class="listing-image">
-                {% else %}
-                    <p>No image available</p>
-                {% endif %}
-                <a href="{% url 'listing' listing.id %}" class="view-listing-link">View Listing</a>
-            </div>
-        {% endfor %}
+    <h2 class="text-center">Active Listings</h2>
+    <div class="container mt-4">
+        <div class="row">
+            {% for listing in listings %}
+                <div class="col-md-3 col-sm-6 mb-4 d-flex align-items-stretch"> <!-- 4 por linha em telas médias -->
+                    <div class="card w-100">
+                        {% if listing.image_url %}
+                            <img src="{{ listing.image_url }}"
+                                 alt="{{ listing.title }}"
+                                 class="listing-image card-img-top">
+                        {% else %}
+                            <img src="https://via.placeholder.com/250x200"
+                                 alt="No image available"
+                                 class="listing-image card-img-top">
+                        {% endif %}
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title text-center">{{ listing.title }}</h5>
+                            <p class="card-text text-center">${{ listing.starting_bid }}</p>
+                            <a href="{% url 'listing' listing.id %}" class="btn btn-primary btn-sm mt-auto">View</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
