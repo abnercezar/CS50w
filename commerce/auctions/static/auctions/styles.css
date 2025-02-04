@@ -1,5 +1,3 @@
-/* styles.css */
-
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
@@ -11,39 +9,29 @@ h1, h2 {
     color: #343a40;
 }
 
-.nav {
-    background-color: #343a40;
-    padding: 10px;
-}
-
-.nav .nav-item {
-    display: inline;
-    margin-right: 10px;
-}
-
-.nav .nav-link {
-    color: #ffffff;
-    text-decoration: none;
-}
-
-.nav .nav-link:hover {
-    text-decoration: underline;
-}
-
 .listings-container {
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+    flex-wrap: wrap; /* Permite que os itens quebrem linha conforme necessário */
+    gap: 15px; /* Espaço entre os itens */
+    justify-content: space-between; /* Distribui os itens igualmente na linha */
+}
+
+
+.listing-content {
+    flex: 1; /* Faz com que o conteúdo ocupe o espaço restante */
 }
 
 .listing {
+    display: flex;
+    flex-direction: column; /* Mantém a imagem acima do conteúdo */
+    align-items: center; /* Centraliza os itens */
     border: 1px solid #dee2e6;
     border-radius: 5px;
-    padding: 15px;
-    margin: 10px 0;
+    padding: 10px;
     background-color: #ffffff;
-    width: calc(33.333% - 20px);
+    width: calc(25% - 15px); /* 4 itens por linha */
     box-sizing: border-box;
+    text-align: center;
 }
 
 .listing h3 {
@@ -55,10 +43,17 @@ h1, h2 {
 }
 
 .listing-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 5px;
+    max-width: 100%;  /* Garante que a imagem não ultrapasse a largura da coluna */
+    max-height: 300px; /* Limita a altura para evitar imagens muito altas */
+    width: auto;  /* Mantém a proporção original */
+    height: auto; /* Mantém a proporção original */
+    object-fit: contain; /* Garante que a imagem não seja cortada */
+    display: block; /* Remove espaços extras abaixo da imagem */
+    margin: 0 auto; /* Centraliza a imagem */
 }
+
+
+
 
 .view-listing-link {
     display: inline-block;
@@ -72,4 +67,17 @@ h1, h2 {
 
 .view-listing-link:hover {
     background-color: #0056b3;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; /* Todos os cards terão a mesma altura */
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
