@@ -1,4 +1,5 @@
 import re
+import html
 from django.shortcuts import render, redirect
 import random
 from django import forms
@@ -7,23 +8,80 @@ from . import util
 
 # Função para converter conteúdo Markdown em HTML
 def convert_md_to_html_simple(markdown_text):
-    # Converter títulos
-    markdown_text = re.sub(r'^(#{1,6})\s*(.+)$', lambda m: f'<h{len(m.group(1))}>{m.group(2)}</h{len(m.group(1))}>', markdown_text, flags=re.MULTILINE)
+    # Escapar caracteres HTML especiais
+    markdown_text = html.escape(markdown_text)
+
+    # Converter títulos (h1 até h6)
+    markdown_text = re.sub(
+        r'^(#{1,6})\s*(.+)$',
+        lambda m: f'<h{len(m.group(1))}>{m.group(2)}</h{len(m.group(1))}>',
+        markdown_text,
+        flags=re.MULTILINE
+    )
 
     # Converter texto em negrito
     markdown_text = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', markdown_text)
 
+    # Converter texto em itálico
+    markdown_text = re.sub(r'\*(.+?)\*', r'<em>\1</em>', markdown_text)
+
+    # Converter texto tachado
+    markdown_text = re.sub(r'~~(.+?)~~', r'<del>\1</del>', markdown_text)
+
     # Converter listas não ordenadas
-    markdown_text = re.sub(r'((?:^|\n)\* .+)+', lambda m: '<ul>' + re.sub(r'\* (.+)', r'<li>\1</li>', m.group(0)) + '</ul>', markdown_text)
+    markdown_text = re.sub(
+        r'((?:^|\n)\* .+)+',
+        lambda m: '<ul>' + re.sub(r'\* (.+)', r'<li>\1</li>', m.group(0)) + '</ul>',
+        markdown_text
+    )
 
     # Remover tags <ul> duplicadas
     markdown_text = re.sub(r'</ul>\s*<ul>', '', markdown_text)
 
+    # Converter listas ordenadas
+    markdown_text = re.sub(
+        r'((?:^|\n)\d+\. .+)+',
+        lambda m: '<ol>' + re.sub(r'\d+\. (.+)', r'<li>\1</li>', m.group(0)) + '</ol>',
+        markdown_text
+    )
+
+    # Remover tags <ol> duplicadas
+    markdown_text = re.sub(r'</ol>\s*<ol>', '', markdown_text)
+
     # Converter links
     markdown_text = re.sub(r'\[(.+?)\]\((.+?)\)', r'<a href="\2">\1</a>', markdown_text)
 
-    # Converter parágrafos, se não for título, lista, link ou negrito
-    markdown_text = re.sub(r'^(?!<h|<ul|<li|<a|<strong)(.+)$', r'<p>\1</p>', markdown_text, flags=re.MULTILINE)
+    # Converter imagens
+    markdown_text = re.sub(r'!\[(.*?)\]\((.+?)\)', r'<img src="\2" alt="\1">', markdown_text)
+
+    # Converter blocos de código (multilinhas cercados por ```)
+    markdown_text = re.sub(
+        r'```(.+?)```',
+        r'<pre><code>\1</code></pre>',
+        markdown_text,
+        flags=re.DOTALL
+    )
+
+    # Converter código inline cercado por `
+    markdown_text = re.sub(r'`(.+?)`', r'<code>\1</code>', markdown_text)
+
+    # Converter blocos de código indentados (4 espaços)
+    markdown_text = re.sub(
+        r'(?:^|\n)( {4}.+)',
+        lambda m: '<pre><code>' + m.group(1).strip() + '</code></pre>',
+        markdown_text
+    )
+
+    # Converter parágrafos (se não for título, lista, link, imagem, bloco de código ou negrito)
+    markdown_text = re.sub(
+        r'^(?!<h|<ul|<ol|<li|<a|<img|<pre|<code|<strong|<em|<del)(.+)$',
+        r'<p>\1</p>',
+        markdown_text,
+        flags=re.MULTILINE
+    )
+
+    # Remover espaços em branco redundantes
+    markdown_text = markdown_text.strip()
 
     return markdown_text
 

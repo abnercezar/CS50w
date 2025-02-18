@@ -1,79 +1,91 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     background-color: #f8f9fa;
     margin: 0;
     padding: 0;
 }
 
-h1, h2 {
+h1,
+h2 {
     color: #343a40;
 }
 
-.listings-container {
-    display: flex;
-    flex-wrap: wrap; /* Permite que os itens quebrem linha conforme necessário */
-    gap: 15px; /* Espaço entre os itens */
-    justify-content: space-between; /* Distribui os itens igualmente na linha */
+/* Melhorando a navbar */
+.navbar {
+    padding: 10px;
 }
 
+.navbar-nav .nav-link {
+    margin-right: 10px;
+    padding: 10px;
+}
 
-.listing-content {
-    flex: 1; /* Faz com que o conteúdo ocupe o espaço restante */
+/* Melhorando os cards dos leilões */
+.listings-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
 }
 
 .listing {
-    display: flex;
-    flex-direction: column; /* Mantém a imagem acima do conteúdo */
-    align-items: center; /* Centraliza os itens */
     border: 1px solid #dee2e6;
-    border-radius: 5px;
-    padding: 10px;
+    border-radius: 8px;
+    padding: 15px;
     background-color: #ffffff;
-    width: calc(25% - 15px); /* 4 itens por linha */
-    box-sizing: border-box;
+    width: calc(25% - 20px);
+    /* 4 por linha */
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
+    transition: transform 0.2s ease-in-out;
+}
+
+.listing:hover {
+    transform: scale(1.03);
 }
 
 .listing h3 {
-    margin-top: 0;
+    margin-top: 10px;
+    font-size: 1.2rem;
 }
 
 .listing p {
     margin: 5px 0;
+    color: #6c757d;
 }
 
+/* Melhorando as imagens */
 .listing-image {
-    max-width: 100%;  /* Garante que a imagem não ultrapasse a largura da coluna */
-    max-height: 300px; /* Limita a altura para evitar imagens muito altas */
-    width: auto;  /* Mantém a proporção original */
-    height: auto; /* Mantém a proporção original */
-    object-fit: contain; /* Garante que a imagem não seja cortada */
-    display: block; /* Remove espaços extras abaixo da imagem */
-    margin: 0 auto; /* Centraliza a imagem */
+    max-width: 100%;
+    height: auto;
+    max-height: 250px;
+    object-fit: cover;
+    border-radius: 5px;
 }
 
-
-
-
+/* Links de ação */
 .view-listing-link {
     display: inline-block;
     margin-top: 10px;
-    padding: 5px 10px;
+    padding: 8px 15px;
     background-color: #007bff;
     color: #ffffff;
     text-decoration: none;
     border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s ease;
 }
 
 .view-listing-link:hover {
     background-color: #0056b3;
 }
 
+/* Cards */
 .card {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100%; /* Todos os cards terão a mesma altura */
+    height: 100%;
 }
 
 .card-body {

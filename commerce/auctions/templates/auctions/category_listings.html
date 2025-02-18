@@ -1,19 +1,25 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Listings in {{ category }}</h2>
-    <div>
-        {% for listing in listings %}
-            <div>
-                <h3>{{ listing.title }}</h3>
-                <p>{{ listing.description }}</p>
-                <p>Current Price: ${{ listing.starting_bid }}</p>
-                {% if listing.image_url %}
-                    <img src="{{ listing.image_url }}" alt="{{ listing.title }}" style="max-width: 200px;">
-                {% endif %}
-                <a href="{% url 'listing' listing.id %}">View Listing</a>
-            </div>
-        {% endfor %}
+    <div class="container mt-4">
+        <h2>Listings in {{ category.categoryName }}</h2>
+        <div class="row">
+            {% for listing in listings %}
+                <div class="col-md-3 col-sm-6 mb-4 d-flex align-items-stretch">
+                    <div class="card w-100">
+                        {% if listing.image_url %}
+                            <img src="{{ listing.image_url }}" alt="{{ listing.title }}" class="card-img-top">
+                        {% else %}
+                            <img src="https://via.placeholder.com/250x200" alt="No image available" class="card-img-top">
+                        {% endif %}
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{ listing.title }}</h5>
+                            <p class="card-text">${{ listing.price }}</p>
+                            <a href="{% url 'listing' listing.id %}" class="btn btn-primary btn-sm">View Listing</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
-

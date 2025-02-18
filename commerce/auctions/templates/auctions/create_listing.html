@@ -1,10 +1,37 @@
 {% extends "auctions/layout.html" %}
 
+{% block title %}
+    Create Listing
+{% endblock %}
+
 {% block body %}
-    <h2>Create New Listing</h2>
-    <form action="{% url 'create_listing' %}" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="btn btn-success" type="submit">Create Listing</button>
-    </form>
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="mb-0">Create New Listing</h2>
+                    </div>
+                    <div class="card-body">
+                        <form action="{% url 'create_listing' %}" method="POST">
+                            {% csrf_token %}
+                            {% for field in form %}
+                                <div class="form-group">
+                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                    {{ field }}
+                                    {% if field.help_text %}
+                                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                                    {% endif %}
+                                    {% for error in field.errors %}
+                                        <div class="text-danger">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            {% endfor %}
+                            <button class="btn btn-success btn-lg btn-block" type="submit">Create Listing</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

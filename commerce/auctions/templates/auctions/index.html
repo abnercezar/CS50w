@@ -3,27 +3,41 @@
 {% block body %}
     <h2 class="text-center">Active Listings</h2>
     <div class="container mt-4">
-        <div class="row">
-            {% for listing in listings %}
-                <div class="col-md-3 col-sm-6 mb-4 d-flex align-items-stretch"> <!-- 4 por linha em telas médias -->
-                    <div class="card w-100">
-                        {% if listing.image_url %}
-                            <img src="{{ listing.image_url }}"
-                                 alt="{{ listing.title }}"
-                                 class="listing-image card-img-top">
-                        {% else %}
-                            <img src="https://via.placeholder.com/250x200"
-                                 alt="No image available"
-                                 class="listing-image card-img-top">
-                        {% endif %}
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title text-center">{{ listing.title }}</h5>
-                            <p class="card-text text-center">${{ listing.starting_bid }}</p>
-                            <a href="{% url 'listing' listing.id %}" class="btn btn-primary btn-sm mt-auto">View</a>
+        <form method="get" action="{% url 'index' %}" class="row g-2 align-items-center mb-4">
+            <div class="col-auto">
+                <select name="category" id="category" class="form-select form-select-sm rounded-lg p-1">
+                    <option value="">All Categories</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}" {% if request.GET.category == category.id|stringformat:"s" %}selected{% endif %}>
+                            {{ category.categoryName }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary btn-sm">
+                    <i class="bi bi-funnel"></i> Filter
+                </button>
+            </div>
+        </form>
+        <div class="container mt-4">
+            <div class="row listings-container">
+                {% for listing in listings %}
+                    <div class="col-md-3 col-sm-6 mb-4 listing"> <!-- 4 por linha em telas médias -->
+                        <div class="card">
+                            {% if listing.image_url %}
+                                <img src="{{ listing.image_url }}" alt="{{ listing.title }}" class="listing-image card-img-top border-hover">
+                            {% else %}
+                                <img src="https://via.placeholder.com/150" alt="No image available" class="listing-image card-img-top border-hover">
+                            {% endif %}
+                            <div class="card-body text-center listing-content">
+                                <h5 class="card-title">{{ listing.title }}</h5>
+                                <p class="card-text">${{ listing.starting_bid }}</p>
+                                <a href="{% url 'listing' listing.id %}" class="btn btn-primary btn-sm view-listing-link">Detail</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
-    </div>
 {% endblock %}

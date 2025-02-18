@@ -1,0 +1,29 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>My Watchlist</h2>
+    <div class="container mt-4">
+        <div class="row listings-container">
+            {% for listing in watchlist_items %}
+                <div class="col-md-3 col-sm-6 mb-4 listing"> <!-- 4 por linha em telas médias -->
+                    <div class="card">
+                        {% if listing.image_url %}
+                            <img src="{{ listing.image_url }}"
+                                 alt="{{ listing.title }}"
+                                 class="listing-image card-img-top">
+                        {% else %}
+                            <img src="https://via.placeholder.com/150"
+                                 alt="No image available"
+                                 class="listing-image card-img-top">
+                        {% endif %}
+                        <div class="card-body text-center listing-content">
+                            <h5 class="card-title">{{ listing.title }}</h5>
+                            <p class="card-text">${{ listing.starting_bid }}</p>
+                            <a href="{% url 'listing' listing.id %}" class="btn btn-primary btn-sm view-listing-link">View</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
