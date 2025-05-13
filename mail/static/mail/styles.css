@@ -1,0 +1,33 @@
+textarea {
+    min-height: 400px;
+}
+
+.read {
+    background-color: #f0f0f0;
+}
+
+.unread{
+    background-color: white;
+}
+textarea {
+    min-height: 400px;
+}
+
+.read {
+    background-color: #e6e6e6;
+}
+
+.unread {
+    background-color: #ffffff;
+    font-weight: bold;
+}
+
+.button-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.button-container .btn {
+    flex: 0;
+}
