@@ -1,0 +1,12 @@
+.new-post{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    border: 1px solid gray;
+}
+.new-post textarea,
+.new-post input[type="submit"] {
+    width: 100%;
+    box-sizing: border-box;
+}

@@ -11,7 +11,7 @@
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#">Network</a>
-          
+
             <div>
               <ul class="navbar-nav mr-auto">
                 {% if user.is_authenticated %}
@@ -24,7 +24,7 @@
                 </li>
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Following</a>
+                        <a class="nav-link" href="{% url 'following' %}">Following</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
@@ -40,7 +40,7 @@
               </ul>
             </div>
           </nav>
-        
+
         <div class="body">
             {% block body %}
             {% endblock %}

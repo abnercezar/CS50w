@@ -1,0 +1,33 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+    <h2>Perfil de {{ profile_user.username }}</h2>
+    <p><strong>Seguidores:</strong> {{ followers_count }}</p>
+    <p><strong>Seguindo:</strong> {{ following_count }}</p>
+
+    {% if user.is_authenticated and user != profile_user %}
+
+        <form method="post" style="margin-bottom: 20px;">
+            {% csrf_token %}
+            {% if is_following %}
+                <button type="submit" class="btn btn-danger">Deixar de seguir</button>
+            {% else %}
+                <button type="submit" class="btn btn-primary">Seguir</button>
+            {% endif %}
+        </form>
+    {% endif %}
+
+        <h3>Postagens</h3>
+        {% for post in posts %}
+            <div class="card my-2">
+                <div class="card-body">
+                    <span class="text-muted" style="font-size: 0.9em;">
+                        {{ post.date|date:"d/m/Y H:i" }}
+                    </span>
+                    <p>{{ post.content }}</p>
+                </div>
+            </div>
+        {% empty %}
+            <p>Nenhuma postagem ainda</p>
+        {% endfor %}
+{% endblock %}
