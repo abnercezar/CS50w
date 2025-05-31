@@ -13,3 +13,11 @@ class Post(models.Model):
 
     def __str__(self):
         return f"Post {self.id} made by {self.user} on {self.date.strftime('%d %b %Y %H:%M:%S')}"
+
+# Representa os seguidores
+class Follow(models.Model):
+    user = models.ForeignKey(User, related_name="seguido", on_delete=models.CASCADE)
+    follower = models.ForeignKey(User, related_name="seguindo", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.follower} segue {self.user}"
