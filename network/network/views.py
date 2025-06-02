@@ -1,19 +1,33 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
+from django.core.paginator import Paginator
 from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
-from .models import User, Post, Follow
+from .models import User, Post, Follow, Like
 
-from .models import User, Post
+import json
 
-## Busca todas as postagens ordenadas da mais recente para a mais antiga
+# Busca todas as postagens ordenadas da mais recente para a mais antiga
 def index(request):
-    posts = Post.objects.all().order_by('-date')
+    posts_list = Post.objects.all().order_by('-date')
+    paginator = Paginator(posts_list, 10)
+
+    page_number = request.GET.get('page')
+    posts = paginator.get_page(page_number)
+
+    liked_posts_ids = []  # Valor padrão para usuários não autenticados
+    if request.user.is_authenticated:
+        liked_posts_ids = request.user.likes.values_list('id', flat=True)
+
     return render(request, "network/index.html", {
-        "posts": posts
+        "posts": posts,
+        "liked_posts_ids": liked_posts_ids
     })
+
 
 def login_view(request):
     if request.method == "POST":
@@ -79,7 +93,10 @@ def newPost(request):
 # Exibe o perfil de um usuário, incluindo seus posts, contagem de seguidores/seguidos e funcionalidade de seguir/deixar de seguir
 def profile(request, username):
     profile_user = get_object_or_404(User, username=username)
-    posts = Post.objects.filter(user=profile_user).order_by('-date')
+    posts_list = Post.objects.filter(user=profile_user).order_by('-date')
+    paginator = Paginator(posts_list, 10)
+    page_number = request.GET.get('page')
+    posts = paginator.get_page(page_number)
     followers_count = Follow.objects.filter(user=profile_user).count()
     following_count = Follow.objects.filter(follower=profile_user).count()
     is_following = False
@@ -106,7 +123,44 @@ def profile(request, username):
 @login_required
 def following(request):
     following_users = [follow.user for follow in request.user.seguindo.all()]
-    posts = Post.objects.filter(user__in=following_users).order_by('-date')
+    posts_list = Post.objects.filter(user__in=following_users).order_by('-date')
+    paginator = Paginator(posts_list, 10)
+    page_number = request.GET.get('page')
+    posts = paginator.get_page(page_number)
     return render(request, "network/following.html", {
         "posts": posts
     })
+
+# Permite que um usuário autenticado edite um post via requisição POST com dados JSON.
+@csrf_exempt
+@login_required
+def edit_post(request, post_id):
+    if request.method == "POST":
+        try:
+            post = Post.objects.get(pk=post_id)
+        except Post.DoesNotExist:
+            return JsonResponse({"error": "Post não encontrado."}, status=404)
+        if post.user != request.user:
+            return JsonResponse({"error": "Permissão negada."}, status=403)
+        data = json.loads(request.body)
+        content = data.get("content", "")
+        post.content = content
+        post.save()
+        return JsonResponse({"message": "Post atualizado com sucesso.", "content": post.content})
+    return JsonResponse({"error": "Método não permitido."}, status=405)
+
+# Permite que um usuário autenticado curta ou descurta um post via requisição POST com dados JSON.
+
+@login_required
+@require_POST
+def toggle_like(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    like, created = Like.objects.get_or_create(user=request.user, post=post)
+    if not created:
+        like.delete()
+        liked = False
+    else:
+        liked = True
+    like_count = post.likes.count()
+    return JsonResponse({"liked": liked, "like_count": like_count})
+

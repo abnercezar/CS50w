@@ -1,18 +1,20 @@
 {% extends "network/layout.html" %}
 
 {% block body %}
-    <h1>Todos as Postagens</h1>
+    <h1>Todas as Postagens</h1>
+
     {% if user.is_authenticated %}
         <h2>Novo Post</h2>
         <form action="{% url 'newPost' %}" method="post" class="new-post">
             {% csrf_token %}
-            <textarea name="content" rows="2" placeholder="Escreva seu post aqui..." style="width:100%;"></textarea>
+            <textarea name="content" rows="2" placeholder="Escreva seu post aqui..." style="width: 100%;"></textarea>
             <br/>
-            <input type="submit" value="Postar" class="btn btn-success" style="width:100%;"/>
+            <input type="submit" value="Postar" class="btn btn-success" style="width: 100%;"/>
         </form>
     {% endif %}
 
     <hr>
+
     {% for post in posts %}
         <div class="card my-2">
             <div class="card-body">
@@ -20,10 +22,158 @@
                     {{ post.user.username }}
                 </a>
                 <p>{{ post.content }}</p>
-                <span class="text-muted">Curtidas: 0</span>
+
+                {% if user.is_authenticated and post.user == user %}
+                    <button class="btn btn-sm btn-outline-primary edit-btn" data-post-id="{{ post.id }}">
+                        Editar
+                    </button>
+                {% endif %}
+
+                <span class="text-muted">
+                    Curtidas: <span class="like-count" data-post-id="{{ post.id }}">{{ post.likes.count }}</span>
+                </span>
+                {% if user.is_authenticated %}
+                    <button class="btn btn-link btn-like" data-post-id="{{ post.id }}">
+                        {% if post.id in liked_post_ids %}
+                            <i class="bi bi-hand-thumbs-down-fill"></i>
+                        {% else %}
+                            <i class="bi bi-hand-thumbs-up"></i>
+                        {% endif %}
+                    </button>
+                {% endif %}
             </div>
         </div>
     {% empty %}
         <p>Nenhuma postagem ainda.</p>
     {% endfor %}
+
+    {% if posts.has_other_pages %}
+        <nav aria-label="Navegação de página">
+            <ul class="pagination justify-content-center">
+                {% if posts.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ posts.previous_page_number }}">Anterior</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">Anterior</span>
+                    </li>
+                {% endif %}
+
+                <li class="page-item disabled">
+                    <span class="page-link">
+                        Página {{ posts.number }} de {{ posts.paginator.num_pages }}
+                    </span>
+                </li>
+
+                {% if posts.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ posts.next_page_number }}">Próximo</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">Próximo</span>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.onclick = function () {
+                    const postId = this.dataset.postId;
+                    const cardBody = this.closest('.card-body');
+                    const contentP = cardBody.querySelector('p');
+                    const originalContent = contentP.innerText;
+
+                    const textarea = document.createElement('textarea');
+                    textarea.className = "form-control";
+                    textarea.value = originalContent;
+
+                    const saveBtn = document.createElement('button');
+                    saveBtn.className = "btn btn-success btn-sm mt-2";
+                    saveBtn.innerText = "Salvar";
+
+                    const cancelBtn = document.createElement('button');
+                    cancelBtn.className = "btn btn-secondary btn-sm mt-2 ml-2";
+                    cancelBtn.innerText = "Cancelar";
+
+                    contentP.replaceWith(textarea);
+                    this.style.display = "none";
+                    cardBody.appendChild(saveBtn);
+                    cardBody.appendChild(cancelBtn);
+
+                    cancelBtn.onclick = function () {
+                        textarea.replaceWith(contentP);
+                        saveBtn.remove();
+                        cancelBtn.remove();
+                        btn.style.display = "inline-block";
+                    }
+
+                    saveBtn.onclick = function () {
+                        fetch(`/edit_post/${postId}`, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "X-CSRFToken": getCookie('csrftoken')
+                            },
+                            body: JSON.stringify({ content: textarea.value })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.content) {
+                                contentP.innerText = data.content;
+                                textarea.replaceWith(contentP);
+                                saveBtn.remove();
+                                cancelBtn.remove();
+                                btn.style.display = "inline-block";
+                            } else {
+                                alert(data.error || "Erro ao editar");
+                            }
+                        });
+                    };
+                };
+            });
+
+            // Curtir/Descurtir
+            document.querySelectorAll('.btn-like').forEach(btn => {
+                btn.onclick = function () {
+                    const postId = this.dataset.postId;
+                    fetch(`/like/${postId}`, {
+                        method: "POST",
+                        headers: {
+                            "X-CSRFToken": getCookie('csrftoken')
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        const likeCountSpan = document.querySelector(`.like-count[data-post-id='${postId}']`);
+                        likeCountSpan.innerText = data.like_count;
+                        if (data.liked) {
+                            this.innerHTML = '<i class="bi bi-hand-thumbs-down-fill"></i>';
+                        } else {
+                            this.innerHTML = '<i class="bi bi-hand-thumbs-up"></i>';
+                        }
+                    });
+                }
+            });
+        });
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
 {% endblock %}
