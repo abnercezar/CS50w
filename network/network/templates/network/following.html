@@ -16,7 +16,21 @@
                     - {{ post.date|date:"d/m/Y H:i" }}
                 </span>
                 <p>{{ post.content }}</p>
-                <span class="text-muted">Curtidas: 0</span>
+                {% if post.likes.count > 0 %}
+                    <span class="text-muted">
+                        <i class="bi bi-heart-fill" style="color:#e0245e;"></i>
+                        <span class="like-count" data-post-id="{{ post.id }}">{{ post.likes.count }}</span>
+                    </span>
+                {% endif %}
+                {% if user.is_authenticated %}
+                    <button class="btn-like ml-2" data-post-id="{{ post.id }}">
+                        {% if post.id in liked_post_ids %}
+                            <i class="bi bi-hand-thumbs-down-fill"></i>
+                        {% else %}
+                            <i class="bi bi-hand-thumbs-up"></i>
+                        {% endif %}
+                    </button>
+                {% endif %}
             </div>
         </div>
     {% empty %}

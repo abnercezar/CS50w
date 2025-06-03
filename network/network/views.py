@@ -122,7 +122,8 @@ def profile(request, username):
 # Exibe os posts dos usuários que o usuário atual está seguindo
 @login_required
 def following(request):
-    following_users = [follow.user for follow in request.user.seguindo.all()]
+    # Busca todos os usuários que o usuário atual segue
+    following_users = [follow.user for follow in Follow.objects.filter(follower=request.user)]
     posts_list = Post.objects.filter(user__in=following_users).order_by('-date')
     paginator = Paginator(posts_list, 10)
     page_number = request.GET.get('page')
