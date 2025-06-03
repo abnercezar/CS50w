@@ -128,8 +128,14 @@ def following(request):
     paginator = Paginator(posts_list, 10)
     page_number = request.GET.get('page')
     posts = paginator.get_page(page_number)
+
+    liked_posts_ids = []
+    if request.user.is_authenticated:
+        liked_posts_ids = request.user.likes.values_list('id', flat=True)
+
     return render(request, "network/following.html", {
-        "posts": posts
+        "posts": posts,
+        "liked_posts_ids": liked_posts_ids
     })
 
 # Permite que um usuário autenticado edite um post via requisição POST com dados JSON.

@@ -16,21 +16,16 @@
                     - {{ post.date|date:"d/m/Y H:i" }}
                 </span>
                 <p>{{ post.content }}</p>
-                {% if post.likes.count > 0 %}
-                    <span class="text-muted">
-                        <i class="bi bi-heart-fill" style="color:#e0245e;"></i>
-                        <span class="like-count" data-post-id="{{ post.id }}">{{ post.likes.count }}</span>
-                    </span>
-                {% endif %}
-                {% if user.is_authenticated %}
-                    <button class="btn-like ml-2" data-post-id="{{ post.id }}">
-                        {% if post.id in liked_post_ids %}
-                            <i class="bi bi-hand-thumbs-down-fill"></i>
+                <span class="text-muted">
+                    <button class="btn-like" data-post-id="{{ post.id }}" style="background:none;border:none;padding:0;outline:none;">
+                        {% if post.id in liked_posts_ids %}
+                            <i class="bi bi-hand-thumbs-up-fill" style="color:#007bff; font-size:1.3em;"></i>
                         {% else %}
-                            <i class="bi bi-hand-thumbs-up"></i>
+                            <i class="bi bi-hand-thumbs-up" style="color:#007bff; font-size:1.3em;"></i>
                         {% endif %}
+                        <span class="like-count" data-post-id="{{ post.id }}">{{ post.likes.count }}</span>
                     </button>
-                {% endif %}
+                </span>
             </div>
         </div>
     {% empty %}
@@ -68,4 +63,45 @@
             </ul>
         </nav>
     {% endif %}
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.btn-like').forEach(btn => {
+            btn.onclick = function () {
+                const postId = this.dataset.postId;
+                fetch(`/like/${postId}`, {
+                    method: "POST",
+                    headers: {
+                        "X-CSRFToken": getCookie('csrftoken')
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const likeCountSpan = this.querySelector('.like-count');
+                    likeCountSpan.innerText = data.like_count;
+                    if (data.liked) {
+                        this.innerHTML = '<i class="bi bi-hand-thumbs-up-fill" style="color:#007bff; font-size:1.3em;"></i> <span class="like-count" data-post-id="' + postId + '">' + data.like_count + '</span>';
+                    } else {
+                        this.innerHTML = '<i class="bi bi-hand-thumbs-up" style="color:#007bff; font-size:1.3em;"></i> <span class="like-count" data-post-id="' + postId + '">' + data.like_count + '</span>';
+                    }
+                });
+            }
+        });
+    });
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    </script>
 {% endblock %}
