@@ -77,6 +77,10 @@ Uma rede social com postagens, curtidas e seguidores.
 
 ---
 
+### 🚀 Capstone
+Este é o projeto final
+O Service Control é um sistema de gestão real desenvolvido para o CS50W de Harvard. Ele foi projetado para dar suporte a uma empresa real.
+
 ## 📈 Impacto no Seu Desenvolvimento Profissional
 
 Completar o **CS50's Web Programming with Python and JavaScript** não só aprimora suas habilidades técnicas, mas também demonstra sua capacidade de aprender e aplicar conhecimentos avançados em desenvolvimento web. Este curso é um marco significativo em sua jornada para se tornar um desenvolvedor web de sucesso.
