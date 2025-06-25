@@ -38,7 +38,7 @@ O **CS50's Web Programming with Python and JavaScript** é um curso oferecido pe
 - **Mail**: Criação de um cliente de email com funcionalidades de envio, recebimento e organização de emails.
 - **Network**: Implementação de uma rede social com postagens, curtidas e seguidores.
 
-## 🚀 Habilidades Adquiridas
+### 🚀 Habilidades Adquiridas
 
 - **Desenvolvimento Full-Stack**: Capacidade de construir aplicações web completas, desde o frontend até o backend.
 - **Trabalho em Equipe**: Uso de Git e GitHub para colaboração em projetos de software.
