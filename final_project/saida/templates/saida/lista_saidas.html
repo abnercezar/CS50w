@@ -1,0 +1,113 @@
+{% extends 'base.html' %} {% block content %}
+    <div class="container mt-5">
+        <h2>Lista de Saídas</h2>
+        <div class="d-flex justify-content-between mb-3">
+            <a href="{% url 'cadastro_saida' %}" class="btn btn-primary">Novo</a>
+            <button type="button" class="btn btn-danger" id="excluir-selecionados">
+                Excluir Selecionados
+            </button>
+        </div>
+        <form method="post" action="{% url 'salvar_saidas' %}">
+            {% csrf_token %}
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="select-all" /></th>
+                        <th>Data de Saída</th>
+                        <th>Série</th>
+                        <th>Produto</th>
+                        <th>Serviço</th>
+                        <th>Quantidade</th>
+                        <th>Valor Unitário</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for saida in page_obj %}
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="selecionados" value="{{ saida.id }}" />
+                            </td>
+                            <td>{{ saida.data_saida|date:"d/m/Y" }}</td>
+                            <td>
+                                <input type="text" class="form-control serie-input" name="serie_{{ saida.id }}" value="{{ saida.serie }}" maxlength="8" />
+                            </td>
+                            <td>{{ saida.produto }}</td>
+                            <td>{{ saida.servico }}</td>
+                            <td>{{ saida.quantidade }}</td>
+                            <td>{{ saida.valor_unitario }}</td>
+                            <td>
+                                <a href="{% url 'editar_saida' saida.id %}" class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-success">Salvar</button>
+            </div>
+        </form>
+        <div class="mt-3">
+            <h5>Total de Itens: {{ total_itens }}</h5>
+        </div>
+    </div>
+
+    <script>
+        document
+            .getElementById("select-all")
+            .addEventListener("click", function(event) {
+                const checkboxes = document.querySelectorAll(
+                    'input[name="selecionados"]'
+                );
+                checkboxes.forEach(
+                    (checkbox) => (checkbox.checked = event.target.checked)
+                );
+            });
+
+        document
+            .getElementById("excluir-selecionados")
+            .addEventListener("click", function() {
+                const form = document.createElement("form");
+                form.method = "post";
+                form.action = '{% url "excluir_selecionados" %}';
+                form.innerHTML = `{% csrf_token %}`;
+                const checkboxes = document.querySelectorAll(
+                    'input[name="selecionados"]:checked'
+                );
+                checkboxes.forEach((checkbox) => {
+                    const input = document.createElement("input");
+                    input.type = "hidden";
+                    input.name = "selecionados";
+                    input.value = checkbox.value;
+                    form.appendChild(input);
+                });
+                document.body.appendChild(form);
+                form.submit();
+            });
+
+        document.querySelectorAll(".serie-input").forEach((input) => {
+            input.addEventListener("input", function() {
+            // Permite no máximo 8 caracteres
+                if (this.value.length > 8) {
+                    this.value = this.value.slice(0, 8);
+                }
+
+            // Somente muda de campo quando atingir 8 caracteres
+                if (this.value.length === 8) {
+                    const nextRow = this.closest("tr").nextElementSibling;
+                    if (nextRow) {
+                        const nextInput = nextRow.querySelector(".serie-input");
+                        if (nextInput) {
+                            setTimeout(() => {
+                                nextInput.focus();
+                                nextInput.select(); // Seleciona o texto no próximo campo para garantir que o foco seja mantido
+                            }, 10); // Adiciona um pequeno atraso para garantir que o foco seja mantido
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}

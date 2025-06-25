@@ -1,0 +1,31 @@
+{% extends 'base.html' %} {% block content %}
+    <div class="container mt-5">
+        <h2>Lista de Produtos</h2>
+        <a href="{% url 'cadastro_produto' %}" class="btn btn-primary mb-3">Novo</a>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Versão</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for produto in page_obj %}
+                    <tr>
+                        <td>{{ produto.produto }}</td>
+                        <td>{{ produto.versao }}</td>
+                        <td>
+                            <a href="{% url 'editar_produto' produto.id %}" class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <a href="{% url 'excluir_produto' produto.id %}" class="btn btn-sm btn-outline-danger">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

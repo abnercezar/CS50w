@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% block content %}
+    <div class="container mt-5">
+        <h2>Lista de Serviços</h2>
+        <a href="{% url 'cadastro_servico' %}" class="btn btn-primary mb-3">Novo</a>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Serviço</th>
+                    <th>Observações</th>
+                    <th>Valor</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for servico in page_obj %}
+                    <tr>
+                        <td>{{ servico.servico }}</td>
+                        <td>{{ servico.observacoes }}</td>
+                        <td>{{ servico.valor }}</td>
+                        <td>
+                            <a href="{% url 'editar_servico' servico.id %}" class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <a href="{% url 'excluir_servico' servico.id %}" class="btn btn-sm btn-outline-danger">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

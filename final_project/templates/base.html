@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br" class="h-100">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{% block title %}Controle de Serviço{% endblock %}</title>
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+
+        <!-- Bootstrap Icons -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+
+        <!-- Custom CSS -->
+        <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+
+        <!-- Chart.js -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+
+    <body class="d-flex flex-column h-100 vsc-initialized">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-4">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'lista_produtos' %}">Produtos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'lista_servicos' %}">Serviços</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'lista_entradas' %}">Entradas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'lista_saidas' %}">Saídas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'lista_usuarios' %}">Usuários</a>
+                        </li>
+                    </ul>
+
+                    <!-- Dropdown de usuário alinhado à direita -->
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item dropdown">
+                            <a id="userDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Usuário
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li>
+                                    <form method="post" action="{% url 'logout' %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="dropdown-item">Logout</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container mt-5">
+            {% block content %}
+            <!-- O conteúdo das páginas será inserido aqui -->
+            {% endblock %}
+        </div>
+
+        <footer class="footer mt-auto py-3 bg-body-tertiary">
+            <div class="container d-flex justify-content-between align-items-center">
+                <span class="text-body-secondary"> © 2025 Controle de Serviço </span>
+
+                <!-- Paginação -->
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination mb-0">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1" aria-label="Primeira">
+                                    <span aria-hidden="true">&laquo;&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Anterior">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        {% endif %} {% for num in page_obj.paginator.page_range %}
+                            <li class="page-item {% if num == page_obj.number %}active{% endif %}">
+                                <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                            </li>
+                        {% endfor %} {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Próxima">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Última">
+                                    <span aria-hidden="true">&raquo;&raquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </footer>
+
+        <!-- Bootstrap Bundle JS (inclui Popper) -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <!-- Script para inicialização correta do Bootstrap Modal -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var modalElements = document.querySelectorAll(".modal");
+                modalElements.forEach(function(modal) {
+                    new bootstrap.Modal(modal);
+                });
+
+                var dropdownElement = document.getElementById("userDropdown");
+                if (dropdownElement) {
+                    new bootstrap.Dropdown(dropdownElement);
+                }
+            });
+        </script>
+    </body>
+
+</html>

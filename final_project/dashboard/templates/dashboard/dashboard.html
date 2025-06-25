@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Dashboard - Controle Serviço
+{% endblock %}
+
+{% block content %}
+    <h2>Bem-vindo ao sistema de controle de serviços.</h2>
+
+    <div class="container mt-5">
+        <h3>Entradas e Saídas por Mês (por Produto e Versão)</h3>
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-6 mb-4">
+                <h5 class="text-center">Entradas</h5>
+                <div class="card p-3">
+                    <div class="ratio ratio-16x9">
+                        <canvas id="graficoEntradas"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6 mb-4">
+                <h5 class="text-center">Saídas</h5>
+                <div class="card p-3">
+                    <div class="ratio ratio-16x9">
+                        <canvas id="graficoSaidas"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-4" style="font-size: 1.2em;">
+            <strong>Total entregue:</strong> {{ total_entregue }}<br>
+            <strong>Total a receber:</strong> R$ {{ total_a_receber|floatformat:2 }}
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+        var labels = {{ labels|safe }};
+        var entradas_datasets = {{ entradas_datasets|safe }};
+        var saidas_datasets = {{ saidas_datasets|safe }};
+
+        // Entradas
+            new Chart(document.getElementById("graficoEntradas").getContext("2d"), {
+                type: "bar",
+                data: {
+                    labels: labels,
+                    datasets: entradas_datasets.map(ds => ({
+                        ...ds,
+                        barThickness: 50,
+                        maxBarThickness: 40,
+                        categoryPercentage: 0.5,
+                        barPercentage: 0.6
+                    }))
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: "Entradas por Mês"
+                        },
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            stacked: false,
+                            ticks: {
+                                autoSkip: false
+                            }
+                        },
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+        // Saídas
+            new Chart(document.getElementById("graficoSaidas").getContext("2d"), {
+                type: "bar",
+                data: {
+                    labels: labels,
+                    datasets: saidas_datasets.map(ds => ({
+                        ...ds,
+                        barThickness: 50,
+                        maxBarThickness: 40,
+                        categoryPercentage: 0.5,
+                        barPercentage: 0.6
+                    }))
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: "Saídas por Mês"
+                        },
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            stacked: false,
+                            ticks: {
+                                autoSkip: false
+                            }
+                        },
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}

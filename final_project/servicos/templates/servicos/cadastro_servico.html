@@ -1,0 +1,28 @@
+{% extends 'base.html' %} {% load produtos_filters %} {% block content %}
+    <div class="container mt-5">
+        <h2 class="text-center">Cadastro de Serviço</h2>
+        <div class="card shadow-sm mx-auto" style="max-width: 600px">
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="servico" class="form-label">{{ form.servico.label_tag }}</label>
+                        {{ form.servico|add_class:"form-control" }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="observacoes" class="form-label">{{ form.observacoes.label_tag }}</label>
+                        {{ form.observacoes|add_class:"form-control" }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="valor" class="form-label">{{ form.valor.label_tag }}</label>
+                        {{ form.valor|add_class:"form-control" }}
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary me-2">Salvar</button>
+                        <a href="{% url 'lista_servicos' %}" class="btn btn-secondary">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

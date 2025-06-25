@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% block content %}
+    <div class="container mt-5">
+    <!-- Título da página -->
+        <h2>Lista de Usuários</h2>
+    <!-- Tabela de usuários -->
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                <!-- Cabeçalhos da tabela -->
+                    <th>Username</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+            <!-- Loop para exibir cada usuário -->
+                {% for usuario in usuarios %}
+                    <tr>
+                <!-- Dados do usuário -->
+                        <td>{{ usuario.username }}</td>
+                        <td>{{ usuario.email }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

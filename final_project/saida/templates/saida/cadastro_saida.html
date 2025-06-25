@@ -1,0 +1,49 @@
+{% extends 'base.html' %} {% load saida_filters %} {% block content %}
+    <div class="container mt-5">
+        <h2 class="text-center">Cadastro de Saída</h2>
+        <div class="card shadow-sm mx-auto" style="max-width: 600px">
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="produto" class="form-label">{{ form.produto.label_tag }}</label>
+                        {{ form.produto|add_class:"form-control" }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="servico" class="form-label">{{ form.servico.label_tag }}</label>
+                        {{ form.servico|add_class:"form-control" }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="quantidade" class="form-label">{{ form.quantidade.label_tag }}</label>
+                        {{ form.quantidade|add_class:"form-control" }}
+                    </div>
+                    {{ form.valor_unitario }}
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary me-2">Salvar</button>
+                        <a href="{% url 'lista_saidas' %}" class="btn btn-secondary">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const servicoSelect = document.getElementById("id_servico");
+            const valorUnitarioInput = document.getElementById("id_valor_unitario");
+
+            servicoSelect.addEventListener("change", function() {
+                const servicoId = this.value;
+                if (servicoId) {
+                    fetch(`/servicos/${servicoId}/valor/`)
+                        .then((response) => response.json())
+                        .then((data) => {
+                            valorUnitarioInput.value = data.valor;
+                        });
+                } else {
+                    valorUnitarioInput.value = "";
+                }
+            });
+        });
+    </script>
+{% endblock %}

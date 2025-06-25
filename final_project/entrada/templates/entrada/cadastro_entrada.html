@@ -1,0 +1,28 @@
+{% extends 'base.html' %} {% load entrada_filters %} {% block content %}
+    <div class="container mt-5">
+        <h2 class="text-center">Cadastro de Entrada</h2>
+        <div class="card shadow-sm mx-auto" style="max-width: 600px">
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="produto" class="form-label">{{ form.produto.label_tag }}</label>
+                        {{ form.produto|add_class:"form-control "}}
+                    </div>
+                    <div class="mb-3">
+                        <label for="servico" class="form-label">{{ form.servico.label_tag }}</label>
+                        {{ form.servico|add_class:"form-control "}}
+                    </div>
+                    <div class="mb-3">
+                        <label for="quantidade" class="form-label">{{ form.quantidade.label_tag }}</label>
+                        {{ form.quantidade|add_class:"form-control "}}
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary me-2">Criar</button>
+                        <a href="{% url 'lista_entradas' %}" class="btn btn-secondary">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
