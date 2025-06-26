@@ -1,3 +1,22 @@
+# CS50W - 2025
+
+### Desenvolvimento Web
+
+![Harvard](https://github.com/abnercezar/CS50x/assets/102832541/96a8e6ab-d1a2-40b0-8b16-21db0b3dbd7e)
+
+---
+
+![image](https://github.com/user-attachments/assets/69549c83-2a47-497e-9ce0-c99a798adca3)
+
+
+---
+
+### Site CS50W:
+
+https://cs50.harvard.edu/web/2020/
+
+---
+
 # 🌐 CS50's Web Programming with Python and JavaScript
 
 ## 📚 Sobre o Curso
