@@ -105,3 +105,8 @@ O Service Control é um sistema de gestão real desenvolvido para o CS50W de Har
 Completar o **CS50's Web Programming with Python and JavaScript** não só aprimora suas habilidades técnicas, mas também demonstra sua capacidade de aprender e aplicar conhecimentos avançados em desenvolvimento web. Este curso é um marco significativo em sua jornada para se tornar um desenvolvedor web de sucesso.
 
 ---
+
+![Thisiscs50](https://github.com/abnercezar/CS50x/assets/102832541/05954b62-d45d-4b1e-bac4-52d3c744cf57)
+
+Observe que este repositório é para armazenar meus projetos e arquivos do curso CS50x da Universidade de Harvard. Não se destina a compartilhar respostas ou encorajar a desonestidade acadêmica. Se você estiver matriculado no momento, conclua as tarefas de forma independente e consulte os materiais do curso.
+
